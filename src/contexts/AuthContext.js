@@ -16,9 +16,10 @@ export function AuthProvider( { children } ) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setLoading(false)
             setCurrentUser(user)
+            setLoading(false)
         })
+
         //unssubscribe to changes when we unmount conponent
         return unsubscribe
     }, [])
