@@ -11,8 +11,23 @@ export function AuthProvider( { children } ) {
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)    
     }
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            
+        })
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setCurrentUser(user)
+        })
+        //unssubscribe to changes when we unmount conponent
+        return unsubscribe
+    }, [])
+
+    //set the user here
+  
     const value = {
         currentUser
+        signup
     }
     return (
         <AuthContext.Provider value={value}>
