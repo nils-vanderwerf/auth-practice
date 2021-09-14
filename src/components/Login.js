@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {Form, Button, Card, Alert} from 'react-bootstrap'
+import { Form, Button, Card, Alert} from 'react-bootstrap'
 import { Container } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -9,7 +9,7 @@ export default function Login() {
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     //Signup context function
-    const { signup } = useAuth()
+    const { login } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -17,18 +17,13 @@ export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        //See if passwords are the same
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Passwords do not match')
-        }
-
         try {
             setError('')
             //so the user doesn't keep clicking and create multiiple accounts
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await login(emailRef.current.value, passwordRef.current.value)
         } catch {
-            setError('Failed to create an account')
+            setError('Failed to log in')
         }
         //after finished trying to sign up
         setLoading(false)
@@ -48,17 +43,13 @@ export default function Login() {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" ref={passwordRef} required></Form.Control>
                     </Form.Group>
-                    <Form.Group id="password">
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control type="password" ref={passwordConfirmRef} required></Form.Control>
-                    </Form.Group>
                     {/* if user is loading, button is loading */}
-                    <Button disabled={loading} type="submit" className="w-100">Sign Up</Button>
+                    <Button disabled={loading} type="submit" className="w-100 mt-2">Log In</Button>
                 </Form>
             </Card.Body>
           </Card> 
           <div className="w-100 text-center mt-2">
-           Need an account? <Link to="/signup">Signup</Link>  
+           Need an account? <Link to="/signup">Register</Link>  
           </div> 
         </>
     )
