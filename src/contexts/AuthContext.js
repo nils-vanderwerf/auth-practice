@@ -1,8 +1,10 @@
+
 import { getAuth } from '@firebase/auth'
 import React, {useContext, useEffect, useState} from 'react'
-import {auth} from '../firebase'
+import {auth} from '../config/firebase'
 
 const AuthContext = React.createContext()
+
 export function useAuth() {
     return useContext(AuthContext)
 }
@@ -18,6 +20,7 @@ export function AuthProvider( { children } ) {
         return auth.signInWithEmailAndPassword(email, password)    
     }
 
+
     function logout() {
         return auth.signOut()
     }
@@ -31,6 +34,38 @@ export function AuthProvider( { children } ) {
     }
     function updatePassword(password){
         return currentUser.updatePassword(password)
+    }
+
+    async function signInWithGoogle(googleProvider) {
+        console.log("Function reached")
+        // try {
+        //     const res = await auth.signInWithPopup(googleProvider);
+        //     const user = res.user;
+        //     const query = await db
+        //       .collection("users")
+        //       .where("uid", "==", user.uid)
+        //       .get();
+        //     if (query.docs.length === 0) {
+        //       await db.collection("users").add({
+        //         uid: user.uid,
+        //         name: user.displayName,
+        //         authProvider: "google",
+        //         email: user.email,
+        //       });
+        //     }
+        //   } catch (err) {
+        //     console.error(err);
+        //     alert(err.message);
+        // }
+    }
+
+    function signInWithFacebook(facebookProvider) {
+        console.log("Calling function", facebookProvider)
+        auth.signInWithPopup(facebookProvider).then((res) => {
+            console.log("USER", res.user)
+        }).catch((error) => {
+            console.error("ERROR", error.message)
+        })
     }
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -51,7 +86,9 @@ export function AuthProvider( { children } ) {
         logout,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        signInWithGoogle,
+        signInWithFacebook
     }
     return (
         <AuthContext.Provider value={value}>

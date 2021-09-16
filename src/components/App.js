@@ -1,4 +1,3 @@
-import { width } from "dom-helpers";
 import React from "react"
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
