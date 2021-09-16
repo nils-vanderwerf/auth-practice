@@ -37,26 +37,12 @@ export function AuthProvider( { children } ) {
     }
 
     async function signInWithGoogle(googleProvider) {
-        console.log("Function reached")
-        // try {
-        //     const res = await auth.signInWithPopup(googleProvider);
-        //     const user = res.user;
-        //     const query = await db
-        //       .collection("users")
-        //       .where("uid", "==", user.uid)
-        //       .get();
-        //     if (query.docs.length === 0) {
-        //       await db.collection("users").add({
-        //         uid: user.uid,
-        //         name: user.displayName,
-        //         authProvider: "google",
-        //         email: user.email,
-        //       });
-        //     }
-        //   } catch (err) {
-        //     console.error(err);
-        //     alert(err.message);
-        // }
+        console.log("Calling function", googleProvider)
+        auth.signInWithPopup(googleProvider).then((res) => {
+            console.log("USER", res.user)
+        }).catch((error) => {
+            console.error("ERROR", error.message)
+        })
     }
 
     function signInWithFacebook(facebookProvider) {

@@ -5,6 +5,7 @@ import { useAuth} from '../contexts/AuthContext'
 // Create a wrapper for our current route
 export default function PrivateRoute({ component: Component, ...rest}) {
     const { currentUser } = useAuth()
+    console.log("Protected route user", currentUser)
     return (
         <Route
            {...rest}

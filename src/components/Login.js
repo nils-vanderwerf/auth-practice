@@ -8,15 +8,17 @@ const facebookProvider = new firebase.auth.FacebookAuthProvider();
 console.log("Google", googleProvider, "Facebook", facebookProvider)
 
 export default function Login() {
+    const { currentUser, logout } = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
-    const passwordConfirmRef = useRef()
     //Signup context function
     const { login, signInWithGoogle, signInWithFacebook } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
+    const state = currentUser
+    console.log("The user is", state)
 
     async function handleSubmit(e) {
         e.preventDefault()
