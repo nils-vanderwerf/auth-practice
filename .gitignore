@@ -2,6 +2,10 @@
 
 # dependencies
 /.cert
+/keytmp.pem
+/cert.pem
+/key.pem
+
 /node_modules
 /.pnp
 .pnp.js
