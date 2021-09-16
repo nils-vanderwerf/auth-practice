@@ -3,8 +3,11 @@ import { Link, useHistory } from 'react-router-dom'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import firebase from "firebase";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
 console.log("Google", googleProvider, "Facebook", facebookProvider)
 
 export default function Signup() {
@@ -87,20 +90,16 @@ export default function Signup() {
                         <Form.Control type="password" ref={passwordConfirmRef} required></Form.Control>
                     </Form.Group>
                     {/* if user is loading, button is loading */}
-                    <Button disabled={loading} type="submit" className="w-100 mt-2">Sign Up</Button>
-                    <Button className="w-100 mt-4" onClick={handleGoogleSignIn}>
-                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
-                            <span>
-                                Login with Google
-                            </span>
-
-                        </Button>
-                    <Button className="w-100 mt-3" onClick={handleFacebookSignUp}>
-                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
-                            <span>
-                                Sign Up with Facebook
-                            </span>
-                        </Button>
+                    <div className="social-btn text-center mt-3 w-100">
+                    <Button disabled={loading} className="btn btn-danger btn-block w-100 mt-2">
+                        <FontAwesomeIcon icon={['fab', 'google']} /> Sign up with 
+                        <strong> Google</strong>
+                    </Button>
+                    <Button disabled={loading} className="btn btn-primary btn-block w-100 mt-2">
+                        <FontAwesomeIcon icon={['fab', 'facebook-f']}/> Sign up with 
+                        <strong> Facebook</strong>
+                    </Button>
+                    </div>
                 </Form>
             </Card.Body>
           </Card> 

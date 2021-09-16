@@ -9,6 +9,12 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faFacebookF, faGoogle)
+
 function App() {
   return (
 

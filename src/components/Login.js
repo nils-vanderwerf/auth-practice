@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import firebase from "firebase";
-import { StyledFirebaseAuth } from 'react-firebaseui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -87,20 +87,17 @@ export default function Login() {
                         {/* if user is loading, button is loading */}
                         <Button disabled={loading} type="submit" className="w-100 mt-2">Log In</Button>
                     </Form>
-                    <div className="w-100 text-center mt-3">
-                        <Button className="w-100 mt-4" onClick={handleGoogleSignIn}>
-                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
-                            <span>
-                                Login with Google
-                            </span>
+                    <div className="social-btn text-center mt-3">
+                        <Button disabled={loading} className="btn btn-danger w-100 mt-2">
+                            <FontAwesomeIcon icon={['fab', 'google']} /> Sign in with
+                            <strong> Google</strong>
+                        </Button>
+                        <Button disabled={loading} className="btn btn-primary w-100 mt-2">
+                            <FontAwesomeIcon icon={['fab', 'facebook-f']} /> Sign in with
+                            <strong> Facebook</strong>
+                        </Button>
 
-                        </Button>
-                        <Button className="w-100 mt-3" onClick={handleFacebookSignIn}>
-                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
-                            <span>
-                                Login with Facebook
-                            </span>
-                        </Button>
+                        {/* <a href="#" class="btn btn-info btn-block w-100 mb-2"><i class="fa fa-twitter"></i> Sign in with <strong>Twitter</strong></a> */}
                     </div>
                     <div className="w-100 text-center mt-3">
                         <Link to="/forgot-password">Forgot Password?</Link>
