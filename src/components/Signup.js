@@ -42,7 +42,7 @@ export default function Signup() {
         setLoading(false)
     }
 
-    async function handleGoogleSignIn(e) {
+    async function handleGoogleSignUp(e) {
         e.preventDefault()
         try {
             setError('')
@@ -56,6 +56,7 @@ export default function Signup() {
         setLoading(false)
     }
 
+    //   };
     async function handleFacebookSignUp(e) {
         e.preventDefault()
         try {
@@ -91,13 +92,11 @@ export default function Signup() {
                     </Form.Group>
                     {/* if user is loading, button is loading */}
                     <div className="social-btn text-center mt-3 w-100">
-                    <Button disabled={loading} className="btn btn-danger btn-block w-100 mt-2">
-                        <FontAwesomeIcon icon={['fab', 'google']} /> Sign up with 
-                        <strong> Google</strong>
+                    <Button onClick={handleGoogleSignUp} disabled={loading} className="btn btn-danger btn-block w-100 mt-2">
+                        <FontAwesomeIcon icon={['fab', 'google']} /> Sign up with <strong> Google</strong>
                     </Button>
-                    <Button disabled={loading} className="btn btn-primary btn-block w-100 mt-2">
-                        <FontAwesomeIcon icon={['fab', 'facebook-f']}/> Sign up with 
-                        <strong> Facebook</strong>
+                    <Button onClick={handleFacebookSignUp} disabled={loading} className="btn btn-primary btn-block w-100 mt-2">
+                        <FontAwesomeIcon icon={['fab', 'facebook-f']}/> Sign up with <strong> Facebook</strong>
                     </Button>
                     </div>
                 </Form>

@@ -88,11 +88,11 @@ export default function Login() {
                         <Button disabled={loading} type="submit" className="w-100 mt-2">Log In</Button>
                     </Form>
                     <div className="social-btn text-center mt-3">
-                        <Button disabled={loading} className="btn btn-danger w-100 mt-2">
+                        <Button onClick={handleGoogleSignIn} disabled={loading} className="btn btn-danger w-100 mt-2">
                             <FontAwesomeIcon icon={['fab', 'google']} /> Sign in with
                             <strong> Google</strong>
                         </Button>
-                        <Button disabled={loading} className="btn btn-primary w-100 mt-2">
+                        <Button onClick={handleFacebookSignIn} disabled={loading} className="btn btn-primary w-100 mt-2">
                             <FontAwesomeIcon icon={['fab', 'facebook-f']} /> Sign in with
                             <strong> Facebook</strong>
                         </Button>
