@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import firebase from "firebase";
+import { StyledFirebaseAuth } from 'react-firebaseui';
+
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 console.log("Google", googleProvider, "Facebook", facebookProvider)
@@ -98,7 +100,6 @@ export default function Login() {
                             <span>
                                 Login with Facebook
                             </span>
-
                         </Button>
                     </div>
                     <div className="w-100 text-center mt-3">

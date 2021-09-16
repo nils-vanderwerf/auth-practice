@@ -1,15 +1,18 @@
 import React, { useRef, useState } from 'react'
-import {Form, Button, Card, Alert} from 'react-bootstrap'
-import { useAuth } from '../contexts/AuthContext'
 import { Link, useHistory } from 'react-router-dom'
-import { StyledFirebaseAuth } from 'react-firebaseui'
+import { Form, Button, Card, Alert } from 'react-bootstrap'
+import { useAuth } from '../contexts/AuthContext'
+import firebase from "firebase";
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+console.log("Google", googleProvider, "Facebook", facebookProvider)
 
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     //Signup context function
-    const { signup } = useAuth()
+    const { signup, signInWithGoogle, signInWithFacebook } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -35,6 +38,35 @@ export default function Signup() {
         //after finished trying to sign up
         setLoading(false)
     }
+
+    async function handleGoogleSignIn(e) {
+        e.preventDefault()
+        try {
+            setError('')
+            setLoading(true)
+            const res = await signInWithGoogle(googleProvider);
+            console.log(res)
+            history.push("/")
+        } catch (err) {
+            setError('Failed to log in')
+        }
+        setLoading(false)
+    }
+
+    async function handleFacebookSignUp(e) {
+        e.preventDefault()
+        try {
+            setError('')
+            setLoading(true)
+            const res = await signInWithFacebook(facebookProvider);
+            console.log(res)
+            history.push("/")
+        } catch (err) {
+            setError('Failed to log in')
+        }
+        setLoading(false)
+    }
+
     return (
         <>
           <Card>
@@ -56,6 +88,19 @@ export default function Signup() {
                     </Form.Group>
                     {/* if user is loading, button is loading */}
                     <Button disabled={loading} type="submit" className="w-100 mt-2">Sign Up</Button>
+                    <Button className="w-100 mt-4" onClick={handleGoogleSignIn}>
+                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
+                            <span>
+                                Login with Google
+                            </span>
+
+                        </Button>
+                    <Button className="w-100 mt-3" onClick={handleFacebookSignUp}>
+                            <img src="https://img.icons8.com/ios-filled/50/000000/google-logo.png" alt="google icon" />
+                            <span>
+                                Sign Up with Facebook
+                            </span>
+                        </Button>
                 </Form>
             </Card.Body>
           </Card> 
