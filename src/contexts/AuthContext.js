@@ -1,6 +1,7 @@
 
 import { getAuth } from '@firebase/auth'
 import React, {useContext, useEffect, useState} from 'react'
+import { useHistory } from 'react-router'
 import {auth} from '../config/firebase'
 
 const AuthContext = React.createContext()
@@ -11,6 +12,7 @@ export function useAuth() {
 export function AuthProvider( { children } ) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
+    const history = useHistory()
 
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)    
@@ -22,6 +24,7 @@ export function AuthProvider( { children } ) {
 
 
     function logout() {
+
         return auth.signOut()
     }
 
@@ -36,7 +39,7 @@ export function AuthProvider( { children } ) {
         return currentUser.updatePassword(password)
     }
 
-    async function signInWithGoogle(googleProvider) {
+    function signInWithGoogle(googleProvider) {
         console.log("Calling function", googleProvider)
         auth.signInWithPopup(googleProvider).then((res) => {
             console.log("USER", res.user)
@@ -47,14 +50,16 @@ export function AuthProvider( { children } ) {
 
     function signInWithFacebook(facebookProvider) {
         console.log("Calling function", facebookProvider)
-        auth.signInWithPopup(facebookProvider).then((res) => {
-            console.log("USER", res.user)
-        }).catch((error) => {
+        auth.signInWithPopup(facebookProvider)
+            .then(res => res.user)
+            .then(() => history.push("/"))
+            .catch((error) => {
             console.error("ERROR", error.message)
         })
     }
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
+            console.log("NEW USER", user)
             setCurrentUser(user)
             setLoading(false)
         })

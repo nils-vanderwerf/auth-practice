@@ -18,6 +18,7 @@ export default function Login() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    
 
     const state = currentUser
     console.log("The user is", state)
@@ -44,9 +45,9 @@ export default function Login() {
             setError('')
             setLoading(true)
             const res = await signInWithGoogle(googleProvider);
-            console.log(res)
             history.push("/")
         } catch (err) {
+            console.log("====WE HAVE AN ERROR====")
             setError('Failed to log in')
         }
         setLoading(false)
@@ -58,7 +59,6 @@ export default function Login() {
             setError('')
             setLoading(true)
             const res = await signInWithFacebook(facebookProvider);
-            console.log(res)
             history.push("/")
         } catch (err) {
             setError('Failed to log in')
@@ -89,11 +89,11 @@ export default function Login() {
                     </Form>
                     <div className="social-btn text-center mt-3">
                         <Button onClick={handleGoogleSignIn} disabled={loading} className="btn btn-danger w-100 mt-2">
-                            <FontAwesomeIcon icon={['fab', 'google']} /> Sign in with
+                            <FontAwesomeIcon icon={['fab', 'google']} /> Login in with
                             <strong> Google</strong>
                         </Button>
                         <Button onClick={handleFacebookSignIn} disabled={loading} className="btn btn-primary w-100 mt-2">
-                            <FontAwesomeIcon icon={['fab', 'facebook-f']} /> Sign in with
+                            <FontAwesomeIcon icon={['fab', 'facebook-f']} /> Login with
                             <strong> Facebook</strong>
                         </Button>
 
